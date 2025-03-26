@@ -6,6 +6,34 @@ export const users = [
   }
 ]
 
+// Mock home data
+export const homeData = {
+  hero: {
+    title: '欢迎来到大学生个人空间',
+    description: '在这里，你可以学习、交友、找到合适的兼职机会'
+  },
+  quickAccess: [
+    {
+      icon: '📚',
+      title: '学习中心',
+      description: '浏览课程资源，提升学习效率',
+      path: '/learning'
+    },
+    {
+      icon: '👥',
+      title: '社交圈',
+      description: '结识新朋友，分享生活点滴',
+      path: '/social'
+    },
+    {
+      icon: '💼',
+      title: '兼职机会',
+      description: '发现适合你的兼职工作',
+      path: '/part-time'
+    }
+  ]
+}
+
 // Mock learning data
 export const courses = [
   {

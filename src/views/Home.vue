@@ -1,23 +1,15 @@
 <template>
   <div class="home-container">
     <div class="hero section">
-      <h1>欢迎来到大学生个人空间</h1>
-      <p>在这里，你可以学习、交友、找到合适的兼职机会</p>
+      <h1>{{ homeData.hero.title }}</h1>
+      <p>{{ homeData.hero.description }}</p>
     </div>
     <div class="quick-access section">
       <h2>快速访问</h2>
       <div class="cards">
-        <router-link to="/learning" class="card">
-          <h3>📚 学习中心</h3>
-          <p>浏览课程资源，提升学习效率</p>
-        </router-link>
-        <router-link to="/social" class="card">
-          <h3>👥 社交圈</h3>
-          <p>结识新朋友，分享生活点滴</p>
-        </router-link>
-        <router-link to="/part-time" class="card">
-          <h3>💼 兼职机会</h3>
-          <p>发现适合你的兼职工作</p>
+        <router-link v-for="module in homeData.quickAccess" :key="module.path" :to="module.path" class="card">
+          <h3>{{ module.icon }} {{ module.title }}</h3>
+          <p>{{ module.description }}</p>
         </router-link>
       </div>
     </div>
@@ -35,28 +27,58 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-
-const announcements = ref([
+import { computed } from 'vue'
+// import { announcements, homeData } from '@/mock'
+const announcements = [
   {
     id: 1,
-    date: '2025-03-26',
     title: '平台更新通知',
-    content: '新增兼职模块，提供更多工作机会。'
+    content: '新增兼职模块，提供更多工作机会，欢迎同学们积极参与。',
+    date: '2025-03-26',
+    type: 'system'
   },
   {
     id: 2,
-    date: '2025-03-25',
     title: '学习资源更新',
-    content: '上线新的在线课程资源，欢迎查看使用。'
+    content: '上线新的在线课程资源，包括编程、设计等热门课程，欢迎查看使用。',
+    date: '2025-03-25',
+    type: 'learning'
   },
   {
     id: 3,
+    title: '社区指南更新',
+    content: '请遵守社区规则，共同维护良好的交流环境。',
     date: '2025-03-24',
-    title: '社区指南',
-    content: '请遵守社区规则，营造良好的交流环境。'
+    type: 'social'
   }
-])
+]
+const homeData = {
+  hero: {
+    title: '欢迎来到大学生个人空间',
+    description: '在这里，你可以学习、交友、找到合适的兼职机会'
+  },
+  quickAccess: [
+    {
+      icon: '📚',
+      title: '学习中心',
+      description: '浏览课程资源，提升学习效率',
+      path: '/learning'
+    },
+    {
+      icon: '👥',
+      title: '社交圈',
+      description: '结识新朋友，分享生活点滴',
+      path: '/social'
+    },
+    {
+      icon: '💼',
+      title: '兼职机会',
+      description: '发现适合你的兼职工作',
+      path: '/part-time'
+    }
+  ]
+}
+
 </script>
 
 <style scoped>
