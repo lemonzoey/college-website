@@ -4,20 +4,18 @@
       <router-link to="/" class="logo">
         大学生空间
       </router-link>
-      <div class="nav-links">
-        <router-link to="/home" class="nav-link">
-          首页
-        </router-link>
-        <router-link to="/learning" class="nav-link">
-          学习
-        </router-link>
-        <router-link to="/social" class="nav-link">
-          社交
-        </router-link>
-        <router-link to="/part-time" class="nav-link">
-          兼职
-        </router-link>
-      </div>
+      <el-menu 
+        class="nav-menu" 
+        mode="horizontal" 
+        router 
+        :ellipsis="false"
+        background-color="transparent"
+      >
+        <el-menu-item index="/home">首页</el-menu-item>
+        <el-menu-item index="/learning">学习</el-menu-item>
+        <el-menu-item index="/social">社交</el-menu-item>
+        <el-menu-item index="/part-time">兼职</el-menu-item>
+      </el-menu>
       <div class="user-actions">
         <button @click="handleLogout" class="logout-btn">
           退出登录
@@ -29,6 +27,7 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
+import { ElMenu, ElMenuItem } from 'element-plus'
 
 const router = useRouter()
 
@@ -65,28 +64,38 @@ const handleLogout = () => {
   text-decoration: none;
 }
 
-.nav-links {
-  display: flex;
-  gap: 2rem;
+.nav-menu {
+  flex: 1;
+  justify-content: flex-start;
+  border: none;
+  margin-left: 2rem;
 }
 
-.nav-link {
-  text-decoration: none;
-  color: #666;
+:deep(.el-menu) {
+  border-bottom: none !important;
+}
+
+.nav-menu :deep(.el-menu-item) {
   font-weight: 500;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  transition: background-color 0.2s;
+  height: 50px;
+  line-height: 50px;
+  color: #666;
+  padding: 0 2rem;
+  border-bottom: none !important;
 }
 
-.nav-link:hover {
-  background-color: #f5f5f5;
+.nav-menu :deep(.el-menu-item:hover) {
   color: #4CAF50;
+  background-color: #f5f5f5;
 }
 
-.nav-link.router-link-active {
+.nav-menu :deep(.el-menu-item.is-active) {
   color: #4CAF50;
   background-color: #f5f5f5;
+}
+
+.nav-menu :deep(.el-menu--horizontal) {
+  border-bottom: none;
 }
 
 .user-actions {
