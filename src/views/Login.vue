@@ -61,7 +61,7 @@ const handleLogin = () => {
       if (rememberMe.value) {
         localStorage.setItem('username', username.value)
       }
-      router.push('/home')
+      router.push('/')
       ElMessage.success('登录成功！')
     } else {
       ElMessage.error('用户名或密码错误')

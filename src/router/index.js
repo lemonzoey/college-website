@@ -1,57 +1,40 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-import Login from '../views/Login.vue'
-import Learning from '../views/Learning.vue'
-import Social from '../views/Social.vue'
-import PartTime from '../views/PartTime.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      redirect: '/home'
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login
-    },
-    {
-      path: '/home',
       name: 'home',
-      component: Home,
-      meta: { requiresAuth: true }
+      component: () => import('@/views/HomeView.vue')
     },
     {
       path: '/learning',
       name: 'learning',
-      component: Learning,
-      meta: { requiresAuth: true }
+      component: () => import('@/views/LearningView.vue')
     },
     {
       path: '/social',
       name: 'social',
-      component: Social,
-      meta: { requiresAuth: true }
+      component: () => import('@/views/SocialView.vue')
     },
     {
       path: '/part-time',
       name: 'part-time',
-      component: PartTime,
-      meta: { requiresAuth: true }
+      component: () => import('@/views/PartTimeView.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/Login.vue')
     }
   ]
 })
 
-// Navigation guard
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = localStorage.getItem('isLoggedIn') === 'true'
-  
-  if (to.meta.requiresAuth && !isAuthenticated) {
-    next('/login')
-  } else if (to.path === '/login' && isAuthenticated) {
-    next('/home')
+  const isLoggedIn = localStorage.getItem('isLoggedIn')
+  if (to.name !== 'login' && !isLoggedIn) {
+    next({ name: 'login' })
   } else {
     next()
   }

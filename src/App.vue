@@ -1,21 +1,31 @@
-<script setup>
-import { RouterView } from 'vue-router'
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
-import Navigation from './components/Navigation.vue'
-
-const route = useRoute()
-const showNav = computed(() => {
-  return route.path !== '/login' && localStorage.getItem('isLoggedIn') === 'true'
-})
-</script>
-
 <template>
-  <Navigation v-if="showNav" />
-  <main :class="{ 'with-nav': showNav }">
-    <RouterView />
-  </main>
+  <div id="app">
+    <nav class="nav">
+      <router-link to="/" class="logo">大学生空间</router-link>
+      <el-menu mode="horizontal" router class="menu">
+        <el-menu-item index="/">首页</el-menu-item>
+        <el-menu-item index="/learning">学习</el-menu-item>
+        <el-menu-item index="/social">社交</el-menu-item>
+        <el-menu-item index="/part-time">兼职</el-menu-item>
+      </el-menu>
+      <el-button type="danger" plain @click="logout">退出</el-button>
+    </nav>
+    <main class="main">
+      <router-view></router-view>
+    </main>
+  </div>
 </template>
+
+<script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const logout = () => {
+  localStorage.removeItem('isLoggedIn')
+  router.push('/login')
+}
+</script>
 
 <style>
 * {
@@ -25,38 +35,47 @@ const showNav = computed(() => {
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
-  color: #333;
+  font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
   line-height: 1.6;
+  background: #f5f5f5;
 }
 
-main {
+#app {
   min-height: 100vh;
 }
 
-.with-nav {
-  padding-top: 70px;
-}
-
-:root {
-  --primary-color: #4CAF50;
-  --primary-hover: #45a049;
-  --text-color: #333;
-  --text-light: #666;
-  --background: #f5f5f5;
-  --border: #eee;
-}
-
-button {
-  cursor: pointer;
-}
-
-.section {
+.nav {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
   background: white;
-  border-radius: 8px;
-  padding: 2rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #409EFF;
+  text-decoration: none;
+  margin-right: 20px;
+}
+
+.menu {
+  flex: 1;
+  border: none;
+}
+
+.menu :deep(.el-menu-item) {
+  height: 56px;
+  line-height: 56px;
+}
+
+.main {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 4px;
+  min-height: calc(100vh - 96px);
 }
 </style>
