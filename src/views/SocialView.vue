@@ -99,6 +99,7 @@ const trendingTopics = [
 
 .post-form {
   margin-bottom: 20px;
+  height: 105px;
 }
 
 .post-btn {
