@@ -6,22 +6,22 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('@/views/HomeView.vue')
+      component: () => import('@/views/Home.vue')
     },
     {
       path: '/learning',
       name: 'learning',
-      component: () => import('@/views/LearningView.vue')
+      component: () => import('@/views/Learning.vue')
     },
     {
       path: '/social',
       name: 'social',
-      component: () => import('@/views/SocialView.vue')
+      component: () => import('@/views/Social.vue')
     },
     {
       path: '/part-time',
       name: 'part-time',
-      component: () => import('@/views/PartTimeView.vue')
+      component: () => import('@/views/PartTime.vue')
     },
     {
       path: '/login',
